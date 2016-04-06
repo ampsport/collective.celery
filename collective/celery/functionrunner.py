@@ -40,10 +40,14 @@ class FunctionRunner(object):
     def deserialize_args(self):
         args = []
         kw = {}
+        if self.app is None:
+            app = self.site
+        else:
+            app = self.app
         for arg in self.orig_args:
-            args.append(_deserialize_arg(self.app, arg))
+            args.append(_deserialize_arg(app, arg))
         for key, value in self.orig_kw.items():
-            kw[key] = _deserialize_arg(self.app, value)
+            kw[key] = _deserialize_arg(app, value)
 
         return args, kw
 
